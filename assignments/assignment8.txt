@@ -1,0 +1,59 @@
+mysql>
+mysql> SELECT e.*
+    -> FROM emp e
+    -> JOIN dept d ON e.deptno = d.deptno;
++-------+---------------+------------+------+------------+----------+---------+--------+
+| empno | ename         | job        | mgr  | hiredate   | sal      | comm    | deptno |
++-------+---------------+------------+------+------------+----------+---------+--------+
+|     1 | John Doe      | Manager    | NULL | 1994-06-15 | 60000.00 |    NULL |     10 |
+|     2 | Jane Smith    | Analyst    |    1 | 1999-08-24 | 50000.00 |  500.00 |     10 |
+|     3 | Emily Davis   | Clerk      |    1 | 2000-11-30 | 40000.00 |    NULL |     10 |
+|     4 | Michael Brown | Developer  | NULL | 2005-12-15 | 70000.00 |    NULL |     20 |
+|     5 | Anna Johnson  | Team Lead  |    4 | 2010-03-23 | 80000.00 | 1000.00 |     20 |
+|     6 | Chris Lee     | Accountant | NULL | 2000-05-01 | 55000.00 |  800.00 |     30 |
++-------+---------------+------------+------+------------+----------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT e.ename AS employee_name, d.dname AS department_name
+    -> FROM emp e
+    -> LEFT JOIN dept d ON e.deptno = d.deptno;
++---------------+-----------------+
+| employee_name | department_name |
++---------------+-----------------+
+| John Doe      | HR              |
+| Jane Smith    | HR              |
+| Emily Davis   | HR              |
+| Michael Brown | IT              |
+| Anna Johnson  | IT              |
+| Chris Lee     | Finance         |
++---------------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT e.ename AS employee_name, d.dname AS department_name
+    -> FROM emp e
+    -> RIGHT JOIN dept d ON e.deptno = d.deptno;
++---------------+-----------------+
+| employee_name | department_name |
++---------------+-----------------+
+| Emily Davis   | HR              |
+| Jane Smith    | HR              |
+| John Doe      | HR              |
+| Anna Johnson  | IT              |
+| Michael Brown | IT              |
+| Chris Lee     | Finance         |
++---------------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE sal > (SELECT AVG(sal) FROM emp);
++-------+---------------+-----------+------+------------+----------+---------+--------+
+| empno | ename         | job       | mgr  | hiredate   | sal      | comm    | deptno |
++-------+---------------+-----------+------+------------+----------+---------+--------+
+|     1 | John Doe      | Manager   | NULL | 1994-06-15 | 60000.00 |    NULL |     10 |
+|     4 | Michael Brown | Developer | NULL | 2005-12-15 | 70000.00 |    NULL |     20 |
+|     5 | Anna Johnson  | Team Lead |    4 | 2010-03-23 | 80000.00 | 1000.00 |     20 |
++-------+---------------+-----------+------+------------+----------+---------+--------+
+3 rows in set (0.00 sec)
+
+mysql>

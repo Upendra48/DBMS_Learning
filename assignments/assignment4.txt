@@ -1,0 +1,115 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.37 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| employee           |
+| information_schema |
+| lab_assignment     |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use lab_assignment;
+Database changed
+mysql>    CREATE TABLE Sales (
+    ->        Sales_No INT,
+    ->        Sales_Name VARCHAR(50),
+    ->        Branch VARCHAR(50),
+    ->        Sales_Amount DECIMAL(10, 2),
+    ->        DOB DATE
+    ->    );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Sales (Sales_No, Sales_Name, Branch, Sales_Amount, DOB)
+    -> VALUES
+    -> (1, 'John Doe', 'North', 15000.00, '1990-12-21'),
+    -> (2, 'Jane Smith', 'South', 20000.00, '1985-06-15'),
+    -> (3, 'Emily Davis', 'East', 18000.00, '1992-12-10'),
+    -> (4, 'Michael Brown', 'West', 22000.00, '1988-03-05'),
+    -> (5, 'Sarah Wilson', 'North', 17000.00, '1991-12-25');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from sales;
++----------+---------------+--------+--------------+------------+
+| Sales_No | Sales_Name    | Branch | Sales_Amount | DOB        |
++----------+---------------+--------+--------------+------------+
+|        1 | John Doe      | North  |     15000.00 | 1990-12-21 |
+|        2 | Jane Smith    | South  |     20000.00 | 1985-06-15 |
+|        3 | Emily Davis   | East   |     18000.00 | 1992-12-10 |
+|        4 | Michael Brown | West   |     22000.00 | 1988-03-05 |
+|        5 | Sarah Wilson  | North  |     17000.00 | 1991-12-25 |
++----------+---------------+--------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Branch, SUM(Sales_Amount) AS Total_Sales_Amount
+    -> FROM Sales
+    -> GROUP BY Branch;
++--------+--------------------+
+| Branch | Total_Sales_Amount |
++--------+--------------------+
+| North  |           32000.00 |
+| South  |           20000.00 |
+| East   |           18000.00 |
+| West   |           22000.00 |
++--------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT Branch, AVG(Sales_Amount) AS Average_Sales_Amount
+    -> FROM Sales
+    -> GROUP BY Branch;
++--------+----------------------+
+| Branch | Average_Sales_Amount |
++--------+----------------------+
+| North  |         16000.000000 |
+| South  |         20000.000000 |
+| East   |         18000.000000 |
+| West   |         22000.000000 |
++--------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT Sales_Name, DATE_FORMAT(DOB, '%d-%b-%y') AS DOB
+    -> FROM Sales
+    -> WHERE MONTH(DOB) = 12;
++--------------+-----------+
+| Sales_Name   | DOB       |
++--------------+-----------+
+| John Doe     | 21-Dec-90 |
+| Emily Davis  | 10-Dec-92 |
+| Sarah Wilson | 25-Dec-91 |
++--------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT Sales_Name, DOB
+    -> FROM Sales
+    -> ORDER BY DATE_FORMAT(DOB, '%M');
++---------------+------------+
+| Sales_Name    | DOB        |
++---------------+------------+
+| John Doe      | 1990-12-21 |
+| Emily Davis   | 1992-12-10 |
+| Sarah Wilson  | 1991-12-25 |
+| Jane Smith    | 1985-06-15 |
+| Michael Brown | 1988-03-05 |
++---------------+------------+
+5 rows in set (0.00 sec)
+
+mysql>

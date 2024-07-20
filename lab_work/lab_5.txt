@@ -1,0 +1,165 @@
+Microsoft Windows [Version 10.0.22631.3880]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\user>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.38 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| upendra             |
+| sys                |
++--------------------+
+5 rows in set (0.04 sec)
+
+mysql> use upendra;
+Database changed
+mysql> create table loan(loanno int primary key, cname nvarchar(50));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> create table account(accno int primary key, cname nvarchar(50));
+Query OK, 0 rows affected, 1 warning (0.01 sec)
+
+mysql> desc loan;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| loanno | int         | NO   | PRI | NULL    |       |
+| cname  | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> desc account;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| accno | int         | NO   | PRI | NULL    |       |
+| cname | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into loan(loanno,cname) VALUES (1,'Ram Thapa'),(2,'Hari Nepal'
+),(3,'Shyam KC');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from loan;
++--------+------------+
+| loanno | cname      |
++--------+------------+
+|      1 | Ram Thapa  |
+|      2 | Hari Nepal |
+|      3 | Shyam KC   |
++--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO account(accno,cname) VALUES(101,'Ram Thapa'),(102,'Hari N
+epal'),(103,'Shyam KC'),(104,'Amit Thapa');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from account;
++-------+------------+
+| accno | cname      |
++-------+------------+
+|   101 | Ram Thapa  |
+|   102 | Hari Nepal |
+|   103 | Shyam KC   |
+|   104 | Amit Thapa |
++-------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct cname from(select cname from loan union select cname
+from account) as customers;
++------------+
+| cname      |
++------------+
+| Ram Thapa  |
+| Hari Nepal |
+| Shyam KC   |
+| Amit Thapa |
++------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT CNAME FROM loan WHERE cname NOT IN(select cname from account);
+
+Empty set (0.01 sec)
+
+mysql> SELECT CNAME FROM account WHERE cname NOT IN(select cname from loan);
+
++------------+
+| CNAME      |
++------------+
+| Amit Thapa |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CNAME FROM account WHERE cname NOT IN(select cname from loan);
+
++------------+
+| CNAME      |
++------------+
+| Amit Thapa |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CNAME FROM account WHERE cname IN(select cname from account);
++------------+
+| CNAME      |
++------------+
+| Ram Thapa  |
+| Hari Nepal |
+| Shyam KC   |
+| Amit Thapa |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME FROM loan WHERE cname IN(select cname from account);
++------------+
+| CNAME      |
++------------+
+| Ram Thapa  |
+| Hari Nepal |
+| Shyam KC   |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into loan(loanno,cname)VALUES(4,'Ashim Thapa');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from loan;
++--------+-------------+
+| loanno | cname       |
++--------+-------------+
+|      1 | Ram Thapa   |
+|      2 | Hari Nepal  |
+|      3 | Shyam KC    |
+|      4 | Ashim Thapa |
++--------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME FROM loan WHERE cname NOT IN(select cname from account);
+                                                                          
++-------------+
+| CNAME       |
++-------------+
+| Ashim Thapa |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>

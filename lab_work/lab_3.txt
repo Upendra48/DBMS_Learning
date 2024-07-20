@@ -1,0 +1,400 @@
+# LAB 3
+
+
+Setting environment for using XAMPP for Windows.
+user@upendra c:\xampp
+# cd C:\xampp\mysql\bin
+
+user@upendra C:\xampp\mysql\bin
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> drop database upendra;
+Query OK, 4 rows affected (0.042 sec)
+
+MariaDB [(none)]> create database upendra;
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [(none)]> use upendra;
+Database changed
+MariaDB [upendra]> create table emp(empno int,ename nvarchar(20),job nvarchar(10),deptname nvarchar(10),sal int,address nvarchar(30));
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [upendra]> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empno    | int(11)     | YES  |     | NULL    |       |
+| ename    | varchar(20) | YES  |     | NULL    |       |
+| job      | varchar(10) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| sal      | int(11)     | YES  |     | NULL    |       |
+| address  | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.014 sec)
+
+MariaDB [upendra]> create table product(pid int,pname nvarchar(20),price int,
+description nvarchar(100));
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [upendra]> desc product;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| pid         | int(11)      | YES  |     | NULL    |       |
+| pname       | varchar(20)  | YES  |     | NULL    |       |
+| price       | int(11)      | YES  |     | NULL    |       |
+| description | varchar(100) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.010 sec)
+
+MariaDB [upendra]> create table customer(cid int,cname nvarchar(30),address n
+varchar(100));
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [upendra]> desc customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| cid     | int(11)      | YES  |     | NULL    |       |
+| cname   | varchar(30)  | YES  |     | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+3 rows in set (0.005 sec)
+
+MariaDB [upendra]> create table sells(pid int,cid int,quantity int);
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [upendra]> desc sells;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| pid      | int(11) | YES  |     | NULL    |       |
+| cid      | int(11) | YES  |     | NULL    |       |
+| quantity | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.010 sec)
+
+MariaDB [upendra]> INSERT INTO EMP(EMPNO,ENAME,JOB,DEPTName,SAL,ADDRESS)
+    -> VALUES
+    -> (1,'Ram','Manager','HR',50000,'123 Ram bazar'),
+    -> (2,'Hari','Developer','IT',60000,'456 Mahendrapool'),
+    -> (3,'David','Salesperson','Sales',40000,'789 Chauthe'),
+    -> (4,'Sarah','Analyst','Finance',55000,'321 Amarsingh'),
+    -> (5,'Sagun','Designer','Marketing',45000,'987 Lamachaur');
+Query OK, 5 rows affected, 1 warning (0.002 sec)
+Records: 5  Duplicates: 0  Warnings: 1
+
+MariaDB [upendra]> select * from emp;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 40000 | 789 Chauthe      |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 45000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> INSERT INTO Product(Pid,Pname,Price,description)
+    -> VALUES
+    -> (1,'Product A',100.00,'Description A'),
+    -> (2,'Product B',200.00,'Description B'),
+    -> (3,'Product C',300.00,'Description C'),
+    -> (4,'Product D',400.00,'Description D'),
+    ->  (5,'Product E',500.00,'Descrition E');
+Query OK, 5 rows affected (0.007 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> select * from product;
++------+-----------+-------+---------------+
+| pid  | pname     | price | description   |
++------+-----------+-------+---------------+
+|    1 | Product A |   100 | Description A |
+|    2 | Product B |   200 | Description B |
+|    3 | Product C |   300 | Description C |
+|    4 | Product D |   400 | Description D |
+|    5 | Product E |   500 | Descrition E  |
++------+-----------+-------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [upendra]> INSERT INTO Customer(Cid,Cname,Address)
+    -> VALUES
+    -> (1,'Ram','123 Ram bazar'),
+    -> (2,'Hari','456 Mahendrapool'),
+    -> (3,'David','789 Chauthe'),
+    -> (4,'Sarah','321 Amarsingh'),
+    -> (5,'Sagun','987 Lamachaur');
+Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> select * from customer;
++------+-------+------------------+
+| cid  | cname | address          |
++------+-------+------------------+
+|    1 | Ram   | 123 Ram bazar    |
+|    2 | Hari  | 456 Mahendrapool |
+|    3 | David | 789 Chauthe      |
+|    4 | Sarah | 321 Amarsingh    |
+|    5 | Sagun | 987 Lamachaur    |
++------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> INSERT INTO Sells(Pid,Cid,quantity)
+    -> VALUES
+    -> (1,1,10),
+    -> (2,2,5),
+    -> (3,3,8),
+    -> (4,4,3),
+    -> (5,5,2);
+Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> select * from sells;
++------+------+----------+
+| pid  | cid  | quantity |
++------+------+----------+
+|    1 |    1 |       10 |
+|    2 |    2 |        5 |
+|    3 |    3 |        8 |
+|    4 |    4 |        3 |
+|    5 |    5 |        2 |
++------+------+----------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE SAL>25000;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 40000 | 789 Chauthe      |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 45000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.003 sec)
+
+MariaDB [upendra]> SELECT * FROM Product WHERE Price>500.00;
+Empty set (0.000 sec)
+
+MariaDB [upendra]> select * from product;
++------+-----------+-------+---------------+
+| pid  | pname     | price | description   |
++------+-----------+-------+---------------+
+|    1 | Product A |   100 | Description A |
+|    2 | Product B |   200 | Description B |
+|    3 | Product C |   300 | Description C |
+|    4 | Product D |   400 | Description D |
+|    5 | Product E |   500 | Descrition E  |
++------+-----------+-------+---------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM Product WHERE Price > 500.00;
+Empty set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM Customer WHERE Address LIKE '%Pokhara%';
+Empty set (0.001 sec)
+
+MariaDB [upendra]> SELECT * FROM Customer WHERE Address LIKE '%Lamachaur%';
++------+-------+---------------+
+| cid  | cname | address       |
++------+-------+---------------+
+|    5 | Sagun | 987 Lamachaur |
++------+-------+---------------+
+1 row in set (0.001 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE JOB='HR' AND ADDRESS LIKE '%Chauth
+e%';
+Empty set (0.007 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE JOB='Manager';
++-------+-------+---------+----------+-------+---------------+
+| empno | ename | job     | deptname | sal   | address       |
++-------+-------+---------+----------+-------+---------------+
+|     1 | Ram   | Manager | HR       | 50000 | 123 Ram bazar |
++-------+-------+---------+----------+-------+---------------+
+1 row in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE ADDRESS LIKE '%Chauthe%';
++-------+-------+------------+----------+-------+-------------+
+| empno | ename | job        | deptname | sal   | address     |
++-------+-------+------------+----------+-------+-------------+
+|     3 | David | Salesperso | Sales    | 40000 | 789 Chauthe |
++-------+-------+------------+----------+-------+-------------+
+1 row in set (0.000 sec)
+
+MariaDB [upendra]> SELECT COUNT(*) AS TotalEmployees FROM EMP;
++----------------+
+| TotalEmployees |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.007 sec)
+
+MariaDB [upendra]> SELECT COUNT(DISTINCT JOB) AS TotalPosts FROM EMP;
++------------+
+| TotalPosts |
++------------+
+|          5 |
++------------+
+1 row in set (0.002 sec)
+
+MariaDB [upendra]> UPDATE EMP SET SAL=SAL*1.15 WHERE DEPTName='1' AND JOB='Ma
+nager';
+Query OK, 0 rows affected (0.007 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [upendra]> DESC EMP;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empno    | int(11)     | YES  |     | NULL    |       |
+| ename    | varchar(20) | YES  |     | NULL    |       |
+| job      | varchar(10) | YES  |     | NULL    |       |
+| deptname | varchar(10) | YES  |     | NULL    |       |
+| sal      | int(11)     | YES  |     | NULL    |       |
+| address  | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.004 sec)
+
+MariaDB [upendra]> select * from emp;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 40000 | 789 Chauthe      |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 45000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE SAL>(SELECT AVG(SAL) FROM EMP);
++-------+-------+-----------+----------+-------+------------------+
+| empno | ename | job       | deptname | sal   | address          |
++-------+-------+-----------+----------+-------+------------------+
+|     2 | Hari  | Developer | IT       | 60000 | 456 Mahendrapool |
+|     4 | Sarah | Analyst   | Finance  | 55000 | 321 Amarsingh    |
++-------+-------+-----------+----------+-------+------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [upendra]> SELECT * FROM Product WHERE Pid IN (SELECT Pid FROM Sells
+WHERE Cid=5);
++------+-----------+-------+--------------+
+| pid  | pname     | price | description  |
++------+-----------+-------+--------------+
+|    5 | Product E |   500 | Descrition E |
++------+-----------+-------+--------------+
+1 row in set (0.007 sec)
+
+MariaDB [upendra]> SELECT * FROM Customer WHERE Cid IN (SELECT Cid FROM Sells WHERE Pid=3);
++------+-------+-------------+
+| cid  | cname | address     |
++------+-------+-------------+
+|    3 | David | 789 Chauthe |
++------+-------+-------------+
+1 row in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM Product WHERE Pid=(SELECT Pid FROM Sells GRO
+UP BY Pid ORDER BY SUM(quantity) DESC LIMIT 1);
++------+-----------+-------+---------------+
+| pid  | pname     | price | description   |
++------+-----------+-------+---------------+
+|    1 | Product A |   100 | Description A |
++------+-----------+-------+---------------+
+1 row in set (0.008 sec)
+
+MariaDB [upendra]> SELECT SUM(SAL) AS TotalAmount FROM EMP WHERE DEPTName='HR';
++-------------+
+| TotalAmount |
++-------------+
+|       50000 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE SAL=(SELECT MAX(SAL) FROM EMP);
++-------+-------+-----------+----------+-------+------------------+
+| empno | ename | job       | deptname | sal   | address          |
++-------+-------+-----------+----------+-------+------------------+
+|     2 | Hari  | Developer | IT       | 60000 | 456 Mahendrapool |
++-------+-------+-----------+----------+-------+------------------+
+1 row in set (0.001 sec)
+
+MariaDB [upendra]> SELECT COUNT(*) AS NumEmployees FROM EMP WHERE SAL<(SELECT
+ AVG(SAL) FROM EMP);
++--------------+
+| NumEmployees |
++--------------+
+|            2 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [upendra]> SELECT * FROM EMP WHERE SAL=(SELECT MIN(SAL) FROM EMP WHER
+E DEPTName='Sales');
++-------+-------+------------+----------+-------+-------------+
+| empno | ename | job        | deptname | sal   | address     |
++-------+-------+------------+----------+-------+-------------+
+|     3 | David | Salesperso | Sales    | 40000 | 789 Chauthe |
++-------+-------+------------+----------+-------+-------------+
+1 row in set (0.000 sec)
+
+MariaDB [upendra]> UPDATE EMP SET SAL=SAL+1000 WHERE SAL<(SELECT AVG(SAL) FRO
+M EMP);
+Query OK, 2 rows affected (0.008 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [upendra]> SELECT * FROM EMP;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 41000 | 789 Chauthe      |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 46000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> UPDATE EMP SET DEPTName='Sales',ADDRESS='Pokhara' WHERE EN
+AME='Sita';
+Query OK, 0 rows affected (0.000 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+MariaDB [upendra]> SELECT * FROM EMP;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 41000 | 789 Chauthe      |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 46000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]> UPDATE EMP SET DEPTName='Sales',ADDRESS='Pokhara' WHERE EN
+AME='David';
+Query OK, 1 row affected (0.007 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [upendra]> SELECT * FROM EMP;
++-------+-------+------------+-----------+-------+------------------+
+| empno | ename | job        | deptname  | sal   | address          |
++-------+-------+------------+-----------+-------+------------------+
+|     1 | Ram   | Manager    | HR        | 50000 | 123 Ram bazar    |
+|     2 | Hari  | Developer  | IT        | 60000 | 456 Mahendrapool |
+|     3 | David | Salesperso | Sales     | 41000 | Pokhara          |
+|     4 | Sarah | Analyst    | Finance   | 55000 | 321 Amarsingh    |
+|     5 | Sagun | Designer   | Marketing | 46000 | 987 Lamachaur    |
++-------+-------+------------+-----------+-------+------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [upendra]>

@@ -1,0 +1,584 @@
+# LAB 1 and 2
+
+
+Setting environment for using XAMPP for Windows.
+user@upendra c:\xampp
+# cd C:\xampp\mysql\bin
+
+user@upendra C:\xampp\mysql\bin
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database upendra;
+ERROR 1007 (HY000): Can't create database 'upendra'; database exists
+MariaDB [(none)]> use upendra
+Database changed
+MariaDB [upendra]> create table student(sname nvarchar(20)not null,rollno int not null,dob datetime not null);
+Query OK, 0 rows affected (0.017 sec)
+
+MariaDB [upendra]> create table emp(empno int,ename nvarchar(20)not null,job nvarchar(10)not null,deptno int,sal int);
+Query OK, 0 rows affected (0.016 sec)
+
+MariaDB [upendra]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empno  | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | NO   |     | NULL    |       |
+| job    | varchar(10) | NO   |     | NULL    |       |
+| deptno | int(11)     | YES  |     | NULL    |       |
+| sal    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.028 sec)
+
+MariaDB [upendra]> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sname  | varchar(20) | NO   |     | NULL    |       |
+| rollno | int(11)     | NO   |     | NULL    |       |
+| dob    | datetime    | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.011 sec)
+
+MariaDB [upendra]> alter table emp add experience int;
+Query OK, 0 rows affected (0.018 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| empno      | int(11)     | YES  |     | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| job        | varchar(10) | NO   |     | NULL    |       |
+| deptno     | int(11)     | YES  |     | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
+| experience | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.011 sec)
+
+MariaDB [upendra]> alter table emp modify column job nvarchar(12);
+Query OK, 0 rows affected (0.033 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| empno      | int(11)     | YES  |     | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| job        | varchar(12) | YES  |     | NULL    |       |
+| deptno     | int(11)     | YES  |     | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
+| experience | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.006 sec)
+
+MariaDB [upendra]> alter table emp add phone_no nvarchar(20);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| empno      | int(11)     | YES  |     | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| job        | varchar(12) | YES  |     | NULL    |       |
+| deptno     | int(11)     | YES  |     | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
+| experience | int(11)     | YES  |     | NULL    |       |
+| phone_no   | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.005 sec)
+
+MariaDB [upendra]> alter table emp modify column phone_no int;
+Query OK, 0 rows affected (0.042 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| empno      | int(11)     | YES  |     | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| job        | varchar(12) | YES  |     | NULL    |       |
+| deptno     | int(11)     | YES  |     | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
+| experience | int(11)     | YES  |     | NULL    |       |
+| phone_no   | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.013 sec)
+
+MariaDB [upendra]> ALTER TABLE EMP ADD CONSTRAINT Pkey1 PRIMARY KEY(EmpNo)
+;
+Query OK, 0 rows affected, 1 warning (0.029 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+MariaDB [upendra]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| empno      | int(11)     | NO   | PRI | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| job        | varchar(12) | YES  |     | NULL    |       |
+| deptno     | int(11)     | YES  |     | NULL    |       |
+| sal        | int(11)     | YES  |     | NULL    |       |
+| experience | int(11)     | YES  |     | NULL    |       |
+| phone_no   | int(11)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.011 sec)
+
+MariaDB [upendra]> show full columns from emp;
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| Field      | Type        | Collation       | Null | Key | Default | Extra | Privileges                      | Comment |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| empno      | int(11)     | NULL            | NO   | PRI | NULL    |       | select,insert,update,references |         |
+| ename      | varchar(20) | utf8_general_ci | NO   |     | NULL    |       | select,insert,update,references |         |
+| job        | varchar(12) | utf8_general_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+| deptno     | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| sal        | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| experience | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| phone_no   | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+7 rows in set (0.011 sec)
+
+MariaDB [upendra]> alter table emp modify column ename nvarchar(30)not nul
+l;
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> show full columns from emp;
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| Field      | Type        | Collation       | Null | Key | Default | Extra | Privileges                      | Comment |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| empno      | int(11)     | NULL            | NO   | PRI | NULL    |       | select,insert,update,references |         |
+| ename      | varchar(30) | utf8_general_ci | NO   |     | NULL    |       | select,insert,update,references |         |
+| job        | varchar(12) | utf8_general_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+| deptno     | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| sal        | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| experience | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| phone_no   | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+7 rows in set (0.012 sec)
+
+MariaDB [upendra]> alter table emp modify column ename nvarchar(30)null;
+Query OK, 0 rows affected (0.028 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> show full columns from emp;
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| Field      | Type        | Collation       | Null | Key | Default | Extra | Privileges                      | Comment |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+| empno      | int(11)     | NULL            | NO   | PRI | NULL    |       | select,insert,update,references |         |
+| ename      | varchar(30) | utf8_general_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+| job        | varchar(12) | utf8_general_ci | YES  |     | NULL    |       | select,insert,update,references |         |
+| deptno     | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| sal        | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| experience | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
+| phone_no   | int(11)     | NULL            | YES  |     | NULL    |       | select,insert,update,references |         |
++------------+-------------+-----------------+------+-----+---------+-------+---------------------------------+---------+
+7 rows in set (0.011 sec)
+
+MariaDB [upendra]> create table dept(deptno int primary key,dname varchar(
+10),loc nvarchar(10));
+Query OK, 0 rows affected (0.015 sec)
+
+MariaDB [upendra]> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptno | int(11)     | NO   | PRI | NULL    |       |
+| dname  | varchar(10) | YES  |     | NULL    |       |
+| loc    | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.012 sec)
+
+MariaDB [upendra]> create table emp1(ename nvarchar(10),empno int,constrai
+nt ch check(empno>100));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [upendra]> alter table emp drop column experience;
+Query OK, 0 rows affected (0.016 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empno    | int(11)     | NO   | PRI | NULL    |       |
+| ename    | varchar(30) | YES  |     | NULL    |       |
+| job      | varchar(12) | YES  |     | NULL    |       |
+| deptno   | int(11)     | YES  |     | NULL    |       |
+| sal      | int(11)     | YES  |     | NULL    |       |
+| phone_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.006 sec)
+
+MariaDB [upendra]> insert into emp(empno,ename,job,deptno,sal)
+    -> VALUES
+    -> (1,'Amit','software engineer',1,10000),
+    -> (2,'Rahul','teacher',2,20000),
+    -> (3,'Monika','doctor',3,30000),
+    -> (4,'Apekshya','developer',4,40000),
+    -> (5,'Dinesh','tester',5,50000),
+    -> (6,'Simran','DBA',6,60000),
+    -> (7,'Hari','manager',7,70000),
+    -> (8,'Ashim','CTO',8,64000),
+    -> (9,'Govinda','CFO',9,45000),
+    -> (10,'Samundra','CEO',10,100000);
+Query OK, 10 rows affected, 1 warning (0.013 sec)
+Records: 10  Duplicates: 0  Warnings: 1
+
+MariaDB [upendra]> select * from emp;
++-------+----------+--------------+--------+--------+----------+
+| empno | ename    | job          | deptno | sal    | phone_no |
++-------+----------+--------------+--------+--------+----------+
+|     1 | Amit     | software eng |      1 |  10000 |     NULL |
+|     2 | Rahul    | teacher      |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor       |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer    |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester       |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA          |      6 |  60000 |     NULL |
+|     7 | Hari     | manager      |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO          |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO          |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO          |     10 | 100000 |     NULL |
++-------+----------+--------------+--------+--------+----------+
+10 rows in set (0.007 sec)
+
+MariaDB [upendra]> select distinct job from emp;
++--------------+
+| job          |
++--------------+
+| software eng |
+| teacher      |
+| doctor       |
+| developer    |
+| tester       |
+| DBA          |
+| manager      |
+| CTO          |
+| CFO          |
+| CEO          |
++--------------+
+10 rows in set (0.008 sec)
+
+MariaDB [upendra]> select distinct sal from emp;
++--------+
+| sal    |
++--------+
+|  10000 |
+|  20000 |
+|  30000 |
+|  40000 |
+|  50000 |
+|  60000 |
+|  70000 |
+|  64000 |
+|  45000 |
+| 100000 |
++--------+
+10 rows in set (0.000 sec)
+
+MariaDB [upendra]> select empno,ename from emp where sal>30000;
++-------+----------+
+| empno | ename    |
++-------+----------+
+|     4 | Apekshya |
+|     5 | Dinesh   |
+|     6 | Simran   |
+|     7 | Hari     |
+|     8 | Ashim    |
+|     9 | Govinda  |
+|    10 | Samundra |
++-------+----------+
+7 rows in set (0.007 sec)
+
+MariaDB [upendra]> select empno,ename from emp order by empno;
++-------+----------+
+| empno | ename    |
++-------+----------+
+|     1 | Amit     |
+|     2 | Rahul    |
+|     3 | Monika   |
+|     4 | Apekshya |
+|     5 | Dinesh   |
+|     6 | Simran   |
+|     7 | Hari     |
+|     8 | Ashim    |
+|     9 | Govinda  |
+|    10 | Samundra |
++-------+----------+
+10 rows in set (0.000 sec)
+
+MariaDB [upendra]> select empno,ename from emp order by empno desc;
++-------+----------+
+| empno | ename    |
++-------+----------+
+|    10 | Samundra |
+|     9 | Govinda  |
+|     8 | Ashim    |
+|     7 | Hari     |
+|     6 | Simran   |
+|     5 | Dinesh   |
+|     4 | Apekshya |
+|     3 | Monika   |
+|     2 | Rahul    |
+|     1 | Amit     |
++-------+----------+
+10 rows in set (0.000 sec)
+
+MariaDB [upendra]> create table newtable LIKE emp;
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [upendra]> desc newtable;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empno    | int(11)     | NO   | PRI | NULL    |       |
+| ename    | varchar(30) | YES  |     | NULL    |       |
+| job      | varchar(12) | YES  |     | NULL    |       |
+| deptno   | int(11)     | YES  |     | NULL    |       |
+| sal      | int(11)     | YES  |     | NULL    |       |
+| phone_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.005 sec)
+
+MariaDB [upendra]> select * from newtable;
+Empty set (0.001 sec)
+
+MariaDB [upendra]> create table newtable2 as select * from emp;
+Query OK, 10 rows affected (0.013 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> desc newtable2;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| empno    | int(11)     | NO   |     | NULL    |       |
+| ename    | varchar(30) | YES  |     | NULL    |       |
+| job      | varchar(12) | YES  |     | NULL    |       |
+| deptno   | int(11)     | YES  |     | NULL    |       |
+| sal      | int(11)     | YES  |     | NULL    |       |
+| phone_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.004 sec)
+
+MariaDB [upendra]> select * from newtable2;
++-------+----------+--------------+--------+--------+----------+
+| empno | ename    | job          | deptno | sal    | phone_no |
++-------+----------+--------------+--------+--------+----------+
+|     1 | Amit     | software eng |      1 |  10000 |     NULL |
+|     2 | Rahul    | teacher      |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor       |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer    |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester       |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA          |      6 |  60000 |     NULL |
+|     7 | Hari     | manager      |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO          |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO          |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO          |     10 | 100000 |     NULL |
++-------+----------+--------------+--------+--------+----------+
+10 rows in set (0.000 sec)
+
+MariaDB [upendra]> insert into newtable1 select * from emp;
+ERROR 1146 (42S02): Table 'upendra.newtable1' doesn't exist
+MariaDB [upendra]> select * from newtable;
+Empty set (0.005 sec)
+
+MariaDB [upendra]> insert into newtable select * from emp;
+Query OK, 10 rows affected (0.002 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+--------------+--------+--------+----------+
+| empno | ename    | job          | deptno | sal    | phone_no |
++-------+----------+--------------+--------+--------+----------+
+|     1 | Amit     | software eng |      1 |  10000 |     NULL |
+|     2 | Rahul    | teacher      |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor       |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer    |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester       |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA          |      6 |  60000 |     NULL |
+|     7 | Hari     | manager      |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO          |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO          |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO          |     10 | 100000 |     NULL |
++-------+----------+--------------+--------+--------+----------+
+10 rows in set (0.001 sec)
+
+MariaDB [upendra]> update emp set ename='Krishna' where empno=1;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [upendra]> select * from emp;
++-------+----------+--------------+--------+--------+----------+
+| empno | ename    | job          | deptno | sal    | phone_no |
++-------+----------+--------------+--------+--------+----------+
+|     1 | Krishna  | software eng |      1 |  10000 |     NULL |
+|     2 | Rahul    | teacher      |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor       |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer    |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester       |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA          |      6 |  60000 |     NULL |
+|     7 | Hari     | manager      |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO          |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO          |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO          |     10 | 100000 |     NULL |
++-------+----------+--------------+--------+--------+----------+
+10 rows in set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+--------------+--------+--------+----------+
+| empno | ename    | job          | deptno | sal    | phone_no |
++-------+----------+--------------+--------+--------+----------+
+|     1 | Amit     | software eng |      1 |  10000 |     NULL |
+|     2 | Rahul    | teacher      |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor       |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer    |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester       |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA          |      6 |  60000 |     NULL |
+|     7 | Hari     | manager      |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO          |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO          |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO          |     10 | 100000 |     NULL |
++-------+----------+--------------+--------+--------+----------+
+10 rows in set (0.001 sec)
+
+MariaDB [upendra]> delete from newtable where empno=1;
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+-----------+--------+--------+----------+
+| empno | ename    | job       | deptno | sal    | phone_no |
++-------+----------+-----------+--------+--------+----------+
+|     2 | Rahul    | teacher   |      2 |  20000 |     NULL |
+|     3 | Monika   | doctor    |      3 |  30000 |     NULL |
+|     4 | Apekshya | developer |      4 |  40000 |     NULL |
+|     5 | Dinesh   | tester    |      5 |  50000 |     NULL |
+|     6 | Simran   | DBA       |      6 |  60000 |     NULL |
+|     7 | Hari     | manager   |      7 |  70000 |     NULL |
+|     8 | Ashim    | CTO       |      8 |  64000 |     NULL |
+|     9 | Govinda  | CFO       |      9 |  45000 |     NULL |
+|    10 | Samundra | CEO       |     10 | 100000 |     NULL |
++-------+----------+-----------+--------+--------+----------+
+9 rows in set (0.001 sec)
+
+MariaDB [upendra]> update newtable set sal=sal*1.10;
+Query OK, 9 rows affected (0.010 sec)
+Rows matched: 9  Changed: 9  Warnings: 0
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+-----------+--------+--------+----------+
+| empno | ename    | job       | deptno | sal    | phone_no |
++-------+----------+-----------+--------+--------+----------+
+|     2 | Rahul    | teacher   |      2 |  22000 |     NULL |
+|     3 | Monika   | doctor    |      3 |  33000 |     NULL |
+|     4 | Apekshya | developer |      4 |  44000 |     NULL |
+|     5 | Dinesh   | tester    |      5 |  55000 |     NULL |
+|     6 | Simran   | DBA       |      6 |  66000 |     NULL |
+|     7 | Hari     | manager   |      7 |  77000 |     NULL |
+|     8 | Ashim    | CTO       |      8 |  70400 |     NULL |
+|     9 | Govinda  | CFO       |      9 |  49500 |     NULL |
+|    10 | Samundra | CEO       |     10 | 110000 |     NULL |
++-------+----------+-----------+--------+--------+----------+
+9 rows in set (0.001 sec)
+
+MariaDB [upendra]> delete from newtable where sal<20000;
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+-----------+--------+--------+----------+
+| empno | ename    | job       | deptno | sal    | phone_no |
++-------+----------+-----------+--------+--------+----------+
+|     2 | Rahul    | teacher   |      2 |  22000 |     NULL |
+|     3 | Monika   | doctor    |      3 |  33000 |     NULL |
+|     4 | Apekshya | developer |      4 |  44000 |     NULL |
+|     5 | Dinesh   | tester    |      5 |  55000 |     NULL |
+|     6 | Simran   | DBA       |      6 |  66000 |     NULL |
+|     7 | Hari     | manager   |      7 |  77000 |     NULL |
+|     8 | Ashim    | CTO       |      8 |  70400 |     NULL |
+|     9 | Govinda  | CFO       |      9 |  49500 |     NULL |
+|    10 | Samundra | CEO       |     10 | 110000 |     NULL |
++-------+----------+-----------+--------+--------+----------+
+9 rows in set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable where ename='a%';
+Empty set (0.007 sec)
+
+MariaDB [upendra]> select * from newtable where ename='b%';
+Empty set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable where ename='B%';
+Empty set (0.002 sec)
+
+MariaDB [upendra]> select * from newtable where ename='A%';
+Empty set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable where ename like 'A%';
++-------+----------+-----------+--------+-------+----------+
+| empno | ename    | job       | deptno | sal   | phone_no |
++-------+----------+-----------+--------+-------+----------+
+|     4 | Apekshya | developer |      4 | 44000 |     NULL |
+|     8 | Ashim    | CTO       |      8 | 70400 |     NULL |
++-------+----------+-----------+--------+-------+----------+
+2 rows in set (0.002 sec)
+
+MariaDB [upendra]> select * from newtable where ename like '%a';
++-------+----------+-----------+--------+--------+----------+
+| empno | ename    | job       | deptno | sal    | phone_no |
++-------+----------+-----------+--------+--------+----------+
+|     3 | Monika   | doctor    |      3 |  33000 |     NULL |
+|     4 | Apekshya | developer |      4 |  44000 |     NULL |
+|     9 | Govinda  | CFO       |      9 |  49500 |     NULL |
+|    10 | Samundra | CEO       |     10 | 110000 |     NULL |
++-------+----------+-----------+--------+--------+----------+
+4 rows in set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable;
++-------+----------+-----------+--------+--------+----------+
+| empno | ename    | job       | deptno | sal    | phone_no |
++-------+----------+-----------+--------+--------+----------+
+|     2 | Rahul    | teacher   |      2 |  22000 |     NULL |
+|     3 | Monika   | doctor    |      3 |  33000 |     NULL |
+|     4 | Apekshya | developer |      4 |  44000 |     NULL |
+|     5 | Dinesh   | tester    |      5 |  55000 |     NULL |
+|     6 | Simran   | DBA       |      6 |  66000 |     NULL |
+|     7 | Hari     | manager   |      7 |  77000 |     NULL |
+|     8 | Ashim    | CTO       |      8 |  70400 |     NULL |
+|     9 | Govinda  | CFO       |      9 |  49500 |     NULL |
+|    10 | Samundra | CEO       |     10 | 110000 |     NULL |
++-------+----------+-----------+--------+--------+----------+
+9 rows in set (0.001 sec)
+
+MariaDB [upendra]> select * from newtable where ename like '%1';
+Empty set (0.000 sec)
+
+MariaDB [upendra]> select * from newtable where ename like 's%a';
++-------+----------+------+--------+--------+----------+
+| empno | ename    | job  | deptno | sal    | phone_no |
++-------+----------+------+--------+--------+----------+
+|    10 | Samundra | CEO  |     10 | 110000 |     NULL |
++-------+----------+------+--------+--------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [upendra]> select *from newtable where ename like '_a%';
++-------+----------+---------+--------+--------+----------+
+| empno | ename    | job     | deptno | sal    | phone_no |
++-------+----------+---------+--------+--------+----------+
+|     2 | Rahul    | teacher |      2 |  22000 |     NULL |
+|     7 | Hari     | manager |      7 |  77000 |     NULL |
+|    10 | Samundra | CEO     |     10 | 110000 |     NULL |
++-------+----------+---------+--------+--------+----------+
+3 rows in set (0.001 sec)
+
+MariaDB [upendra]>

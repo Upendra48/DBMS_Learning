@@ -1,0 +1,124 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.37 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.02 sec)
+
+mysql> create database employee
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use employee;
+Database changed
+mysql>    CREATE TABLE EMPLOYEES (
+    ->        Emp_id INT,
+    ->        First_name VARCHAR(50),
+    ->        Last_name VARCHAR(50),
+    ->        Phone_No VARCHAR(15),
+    ->        Hire_date DATE,
+    ->        Job_id VARCHAR(10),
+    ->        Emp_Salary DECIMAL(10, 2),
+    ->        Commission_Pct DECIMAL(5, 2),
+    ->        Manager_id INT,
+    ->        Department_id INT
+    ->    );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEES (Emp_id, First_name, Last_name, Phone_No, Hire_date, Job_id, Emp_Salary, Commission_Pct, Manager_id, Department_id)
+    -> VALUES
+    -> (1, 'John', 'Doe', '123-456-7890', '2023-01-15', 'J101', 5000.00, 10.00, 101, 60),
+    -> (2, 'Jane', 'Smith', '123-456-7891', '2023-02-20', 'J102', 4800.00, 12.00, 102, 70),
+    -> (3, 'Robert', 'Brown', '123-456-7892', '2023-03-10', 'J103', 4500.00, 15.00, 103, 80),
+    -> (4, 'Emily', 'Austin', '123-456-7893', '2023-04-25', 'J104', 5200.00, 8.00, 104, 60),
+    -> (5, 'Michael', 'Clark', '123-456-7894', '2023-05-30', 'J105', 4700.00, 11.00, 105, 70);
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM EMPLOYEES;
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+| Emp_id | First_name | Last_name | Phone_No     | Hire_date  | Job_id | Emp_Salary | Commission_Pct | Manager_id | Department_id |
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+|      1 | John       | Doe       | 123-456-7890 | 2023-01-15 | J101   |    5000.00 |          10.00 |        101 |            60 |
+|      2 | Jane       | Smith     | 123-456-7891 | 2023-02-20 | J102   |    4800.00 |          12.00 |        102 |            70 |
+|      3 | Robert     | Brown     | 123-456-7892 | 2023-03-10 | J103   |    4500.00 |          15.00 |        103 |            80 |
+|      4 | Emily      | Austin    | 123-456-7893 | 2023-04-25 | J104   |    5200.00 |           8.00 |        104 |            60 |
+|      5 | Michael    | Clark     | 123-456-7894 | 2023-05-30 | J105   |    4700.00 |          11.00 |        105 |            70 |
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Emp_id, First_name, Last_name, Emp_Salary FROM EMPLOYEES;
++--------+------------+-----------+------------+
+| Emp_id | First_name | Last_name | Emp_Salary |
++--------+------------+-----------+------------+
+|      1 | John       | Doe       |    5000.00 |
+|      2 | Jane       | Smith     |    4800.00 |
+|      3 | Robert     | Brown     |    4500.00 |
+|      4 | Emily      | Austin    |    5200.00 |
+|      5 | Michael    | Clark     |    4700.00 |
++--------+------------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT First_name, Last_name FROM EMPLOYEES WHERE Emp_Salary >= 4800;
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| John       | Doe       |
+| Jane       | Smith     |
+| Emily      | Austin    |
++------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEES WHERE Last_name = 'AUSTIN';
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+| Emp_id | First_name | Last_name | Phone_No     | Hire_date  | Job_id | Emp_Salary | Commission_Pct | Manager_id | Department_id |
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+|      4 | Emily      | Austin    | 123-456-7893 | 2023-04-25 | J104   |    5200.00 |           8.00 |        104 |            60 |
++--------+------------+-----------+--------------+------------+--------+------------+----------------+------------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT First_name, Last_name FROM EMPLOYEES WHERE Department_id IN (60, 70, 80);
++------------+-----------+
+| First_name | Last_name |
++------------+-----------+
+| John       | Doe       |
+| Jane       | Smith     |
+| Robert     | Brown     |
+| Emily      | Austin    |
+| Michael    | Clark     |
++------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT Manager_id FROM EMPLOYEES;
++------------+
+| Manager_id |
++------------+
+|        101 |
+|        102 |
+|        103 |
+|        104 |
+|        105 |
++------------+
+5 rows in set (0.00 sec)
+
+mysql>

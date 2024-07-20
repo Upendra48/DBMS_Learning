@@ -1,0 +1,85 @@
+mysql>
+mysql> SELECT e1.ename AS employee_name
+    -> FROM Emp e1
+    -> JOIN Emp e2 ON e1.mgr = e2.empno
+    -> WHERE e1.sal > e2.sal;
++---------------+
+| employee_name |
++---------------+
+| Anna Johnson  |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT e.ename AS employee_name
+    -> FROM Emp e
+    -> JOIN (
+    ->     SELECT deptno, MAX(sal) AS max_salary
+    ->     FROM Emp
+    ->     GROUP BY deptno
+    -> ) dept_max
+    -> ON e.deptno = dept_max.deptno AND e.sal = dept_max.max_salary;
++---------------+
+| employee_name |
++---------------+
+| John Doe      |
+| Anna Johnson  |
+| Chris Lee     |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT e1.ename AS employee_name_1, e2.ename AS employee_name_2, d.loc
+    -> FROM Emp e1
+    -> JOIN Dept d ON e1.deptno = d.deptno
+    -> JOIN Emp e2 ON e1.deptno = e2.deptno AND e1.empno != e2.empno
+    -> JOIN Dept d2 ON e2.deptno = d2.deptno AND d.loc = d2.loc;
++-----------------+-----------------+---------------+
+| employee_name_1 | employee_name_2 | loc           |
++-----------------+-----------------+---------------+
+| John Doe        | Jane Smith      | New York      |
+| John Doe        | Emily Davis     | New York      |
+| Jane Smith      | John Doe        | New York      |
+| Jane Smith      | Emily Davis     | New York      |
+| Emily Davis     | John Doe        | New York      |
+| Emily Davis     | Jane Smith      | New York      |
+| Michael Brown   | Anna Johnson    | San Francisco |
+| Anna Johnson    | Michael Brown   | San Francisco |
++-----------------+-----------------+---------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT e.ename AS employee_name
+    -> FROM Emp e
+    -> JOIN (
+    ->     SELECT deptno, MIN(sal) AS min_salary
+    ->     FROM Emp
+    ->     GROUP BY deptno
+    -> ) dept_min
+    -> ON e.deptno = dept_min.deptno AND e.sal = dept_min.min_salary;
++---------------+
+| employee_name |
++---------------+
+| Emily Davis   |
+| Michael Brown |
+| Chris Lee     |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT d.dname AS department_name
+    -> FROM Dept d
+    -> LEFT JOIN Emp e ON d.deptno = e.deptno
+    -> WHERE e.empno IS NULL;
+Empty set (0.00 sec)
+
+mysql> select * from emp;
++-------+---------------+------------+------+------------+----------+---------+--------+
+| empno | ename         | job        | mgr  | hiredate   | sal      | comm    | deptno |
++-------+---------------+------------+------+------------+----------+---------+--------+
+|     1 | John Doe      | Manager    | NULL | 1994-06-15 | 60000.00 |    NULL |     10 |
+|     2 | Jane Smith    | Analyst    |    1 | 1999-08-24 | 50000.00 |  500.00 |     10 |
+|     3 | Emily Davis   | Clerk      |    1 | 2000-11-30 | 40000.00 |    NULL |     10 |
+|     4 | Michael Brown | Developer  | NULL | 2005-12-15 | 70000.00 |    NULL |     20 |
+|     5 | Anna Johnson  | Team Lead  |    4 | 2010-03-23 | 80000.00 | 1000.00 |     20 |
+|     6 | Chris Lee     | Accountant | NULL | 2000-05-01 | 55000.00 |  800.00 |     30 |
++-------+---------------+------------+------+------------+----------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql>

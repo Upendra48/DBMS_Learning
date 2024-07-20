@@ -1,0 +1,125 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.37 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database assignment6;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use assignment6;
+Database changed
+mysql> CREATE TABLE Dept (
+    ->     deptno INT PRIMARY KEY,
+    ->     dname VARCHAR(50),
+    ->     loc VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE Emp (
+    ->     empno INT PRIMARY KEY,
+    ->     ename VARCHAR(50),
+    ->     job VARCHAR(50),
+    ->     mgr INT,
+    ->     hiredate DATE,
+    ->     sal DECIMAL(10, 2),
+    ->     comm DECIMAL(10, 2),
+    ->     deptno INT,
+    ->     FOREIGN KEY (deptno) REFERENCES Dept(deptno),
+    ->     FOREIGN KEY (mgr) REFERENCES Emp(empno)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> INSERT INTO Dept (deptno, dname, loc) VALUES
+    -> (10, 'HR', 'New York'),
+    -> (20, 'IT', 'San Francisco'),
+    -> (30, 'Finance', 'Chicago');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++--------+---------+---------------+
+| deptno | dname   | loc           |
++--------+---------+---------------+
+|     10 | HR      | New York      |
+|     20 | IT      | San Francisco |
+|     30 | Finance | Chicago       |
++--------+---------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO Emp (empno, ename, job, mgr, hiredate, sal, comm, deptno) VALUES
+    -> (1, 'John Doe', 'Manager', NULL, '1994-06-15', 60000, NULL, 10),
+    -> (2, 'Jane Smith', 'Analyst', 1, '1999-08-24', 50000, 500, 10),
+    -> (3, 'Emily Davis', 'Clerk', 1, '2000-11-30', 40000, NULL, 10),
+    -> (4, 'Michael Brown', 'Developer', NULL, '2005-12-15', 70000, NULL, 20),
+    -> (5, 'Anna Johnson', 'Team Lead', 4, '2010-03-23', 80000, 1000, 20),
+    -> (6, 'Chris Lee', 'Accountant', NULL, '2000-05-01', 55000, 800, 30);
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-------+---------------+------------+------+------------+----------+---------+--------+
+| empno | ename         | job        | mgr  | hiredate   | sal      | comm    | deptno |
++-------+---------------+------------+------+------------+----------+---------+--------+
+|     1 | John Doe      | Manager    | NULL | 1994-06-15 | 60000.00 |    NULL |     10 |
+|     2 | Jane Smith    | Analyst    |    1 | 1999-08-24 | 50000.00 |  500.00 |     10 |
+|     3 | Emily Davis   | Clerk      |    1 | 2000-11-30 | 40000.00 |    NULL |     10 |
+|     4 | Michael Brown | Developer  | NULL | 2005-12-15 | 70000.00 |    NULL |     20 |
+|     5 | Anna Johnson  | Team Lead  |    4 | 2010-03-23 | 80000.00 | 1000.00 |     20 |
+|     6 | Chris Lee     | Accountant | NULL | 2000-05-01 | 55000.00 |  800.00 |     30 |
++-------+---------------+------------+------+------------+----------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE Emp
+    -> SET sal = sal * 1.15
+    -> WHERE TIMESTAMPDIFF(YEAR, hiredate, CURDATE()) > 30;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT mgr, COUNT(*) AS num_employees
+    -> FROM Emp
+    -> GROUP BY mgr
+    -> ORDER BY num_employees DESC
+    -> LIMIT 1;
++------+---------------+
+| mgr  | num_employees |
++------+---------------+
+| NULL |             3 |
++------+---------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE VIEW EmployeeManagerView AS
+    -> SELECT e1.ename AS employee_name, e2.ename AS manager_name
+    -> FROM Emp e1
+    -> LEFT JOIN Emp e2 ON e1.mgr = e2.empno;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from emp;
++-------+---------------+------------+------+------------+----------+---------+--------+
+| empno | ename         | job        | mgr  | hiredate   | sal      | comm    | deptno |
++-------+---------------+------------+------+------------+----------+---------+--------+
+|     1 | John Doe      | Manager    | NULL | 1994-06-15 | 60000.00 |    NULL |     10 |
+|     2 | Jane Smith    | Analyst    |    1 | 1999-08-24 | 50000.00 |  500.00 |     10 |
+|     3 | Emily Davis   | Clerk      |    1 | 2000-11-30 | 40000.00 |    NULL |     10 |
+|     4 | Michael Brown | Developer  | NULL | 2005-12-15 | 70000.00 |    NULL |     20 |
+|     5 | Anna Johnson  | Team Lead  |    4 | 2010-03-23 | 80000.00 | 1000.00 |     20 |
+|     6 | Chris Lee     | Accountant | NULL | 2000-05-01 | 55000.00 |  800.00 |     30 |
++-------+---------------+------------+------+------------+----------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select * from dept;
++--------+---------+---------------+
+| deptno | dname   | loc           |
++--------+---------+---------------+
+|     10 | HR      | New York      |
+|     20 | IT      | San Francisco |
+|     30 | Finance | Chicago       |
++--------+---------+---------------+
+3 rows in set (0.00 sec)
