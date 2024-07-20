@@ -52,7 +52,7 @@ Projects involve comprehensive database design tasks, including requirements ana
 - [Project 2: Online Retail Store Database]
 - [Project 3: Hospital Management System]
 
-## Resources
+## Resources (Yet to add)
 
 A curated list of resources to supplement the learning process.
 
